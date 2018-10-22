@@ -17,7 +17,7 @@ from art.utils import load_dataset
 
 # Read MNIST dataset
 (x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('mnist'))
-
+print(x_train.shape)
 # Create Keras convolutional neural network - basic architecture from Keras examples
 # Source here: https://github.com/keras-team/keras/blob/master/examples/mnist_cnn.py
 k.set_learning_phase(1)
