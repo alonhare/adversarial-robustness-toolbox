@@ -75,5 +75,22 @@ print("conv2 output shape: ")
 print(conv2_output.shape)
 print(type(conv1_output))
 
-np.save(local_path + "conv1_output.npy", conv1_output)
-np.save(local_path + "conv2_output.npy", conv2_output)
+conv1_output_reshaped = conv1_output
+conv2_output_reshaped = conv2_output
+
+max_size = conv2_output_reshaped.shape[1]
+
+to_add = max_size - conv1_output_reshaped.shape[1]
+print("before conv1:" + str(conv1_output_reshaped[100]))
+conv1_output_reshaped = np.pad(conv1_output_reshaped, [(0, 0), (0, to_add)], mode='constant')
+
+print("after conv1:" + str(conv1_output_reshaped[100]))
+
+input_sequence = np.stack((conv1_output_reshaped, conv2_output_reshaped), axis=-1)
+print("100 before reshape: " + str(input_sequence[100]))
+print("before reshape: " + str(input_sequence.shape))
+input_sequence = np.transpose(input_sequence, (0, 2, 1))
+print("after reshape: " + str(input_sequence.shape))
+print("100 after reshape: " + str(input_sequence[100]))
+print("100 after unite: conv1:" + str(input_sequence[100][0]) + " conv2:" + str(input_sequence[100][1]))
+np.save(local_path + "input_sequence.npy", input_sequence)
