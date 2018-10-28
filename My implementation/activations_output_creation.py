@@ -17,8 +17,8 @@ from art.attacks.fast_gradient import FastGradientMethod
 from art.classifiers import KerasClassifier
 from art.utils import load_dataset
 
-sess = tf.InteractiveSession()
-
+# Read MNIST dataset
+(x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('mnist'))
 
 local_path = "C:\\Users\\alonh\\Documents\\Thesis\\adversarial-robustness-toolbox\\My implementation\\cnn_data\\"
 # should start run from here
@@ -29,16 +29,10 @@ loaded_model = model_from_yaml(loaded_model_yaml)
 # load weights into new model
 loaded_model.load_weights(local_path + "model.h5")
 
+loaded_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-conv1 = loaded_model.layers[0].get_weights()
-conv2 = loaded_model.layers[1].get_weights()
-
-W_conv1 = conv1[0]
-b_conv1 = conv1[1]
-
-W_conv2 = conv2[0]
-b_conv2 = conv2[1]
-
-print("woho")
-
-sess.close()
+# sanity check
+classifier = KerasClassifier((min_, max_), model=loaded_model)
+preds = np.argmax(classifier.predict(x_test), axis=1)
+acc = np.sum(preds == np.argmax(y_test, axis=1)) / y_test.shape[0]
+print("\nTest accuracy: %.2f%%" % (acc * 100))
