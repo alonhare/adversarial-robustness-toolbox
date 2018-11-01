@@ -25,10 +25,10 @@ print(x_train.shape)
 k.set_learning_phase(1)
 
 model = Sequential()
-conv1 = Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=x_train.shape[1:], name="conv1")
+conv1 = Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=x_train.shape[1:], name="conv1")
 
 model.add(conv1)
-conv2 = Conv2D(64, (3, 3), activation='relu', name="conv2")
+conv2 = Conv2D(32, (2, 2), activation='relu', name="conv2")
 
 model.add(conv2)
 maxPool = MaxPooling2D(pool_size=(2, 2))

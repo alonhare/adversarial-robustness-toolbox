@@ -20,7 +20,7 @@ config:
       class_name: VarianceScaling
       config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
     kernel_regularizer: null
-    kernel_size: !!python/tuple [3, 3]
+    kernel_size: !!python/tuple [2, 2]
     name: conv1
     padding: valid
     strides: &id002 !!python/tuple [1, 1]
@@ -37,13 +37,13 @@ config:
     bias_regularizer: null
     data_format: channels_last
     dilation_rate: *id001
-    filters: 64
+    filters: 32
     kernel_constraint: null
     kernel_initializer:
       class_name: VarianceScaling
       config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
     kernel_regularizer: null
-    kernel_size: !!python/tuple [3, 3]
+    kernel_size: !!python/tuple [2, 2]
     name: conv2
     padding: valid
     strides: *id002
